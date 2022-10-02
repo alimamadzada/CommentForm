@@ -1,0 +1,46 @@
+﻿@model List<Service>
+<section id="services" class="feature-section pt-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-7">
+                <div class="section-title text-center mb-60">
+                    <h1>Our Main Services <img src="~/img/vectors/title-shape.svg" alt="" class="title-shape center"> </h1>
+                    <p>Sonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua vero eos</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center services-wrapper">
+            <partial name="_ServicePartial" />
+        </div>
+        <div class="text-center">
+            <a href="#" class="btn btn-danger load-services">LOAD MORE</a>
+        </div>
+    </div>
+</section>
+<input type="hidden" value="@ViewBag.serviceCount" id="service-count" />
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+            crossorigin="anonymous"></script>
+
+    <script>
+        let skip = 3;
+        let serviceCount = $("#service-count").val();
+        $(".load-services").click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "/home/loadmoreservices?skip=" + skip,
+                method: "GET",
+                success: function (res) {
+                    $(".services-wrapper").append(res);
+                    skip += 3;
+                    if (skip >= serviceCount) {
+                        $(".load-services").remove();
+                    }
+                }
+            })
+        });
+    </script>
+}
+

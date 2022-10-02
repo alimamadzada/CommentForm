@@ -1,0 +1,17 @@
+﻿@model List<Service>
+
+@foreach (Service item in Model)
+{
+    <div class="col-lg-4 col-md-6 col-sm-10">
+        <div class="single-feature">
+            <div class="icon">
+                <i class="@item.Icon"></i>
+            </div>
+            <div class="content">
+                <h3 class="text-danger">@item.Title </h3>
+                <h5 class="m-1" >@item.ServiceCategory.Name</h5>
+                <p>@item.Text</p>
+            </div>
+        </div>
+    </div>
+}

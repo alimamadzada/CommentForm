@@ -1,0 +1,32 @@
+﻿<div class="container pt-150">
+    <input type="text" placeholder="Search services" class="form-control form-control-lg" id="search-input-services" />
+</div>
+<div class="container">
+    <div class="row justify-content-center services-wrapper">
+    </div>
+</div>
+
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+            crossorigin="anonymous"></script>
+
+    <script>
+
+        $("#search-input-services").keyup(function () {
+            let query = $("#search-input-services").val();
+            if (query.length >= 1) {
+                $.ajax({
+                    url: "/home/searchserviceajax?query=" + query,
+                    method: "GET",
+                    success: function (res) {
+                        $(".services-wrapper").empty();
+                        $(".services-wrapper").append(res);
+                    }
+                })
+            }
+            else
+                $(".services-wrapper").empty();
+        });
+    </script>
+}
